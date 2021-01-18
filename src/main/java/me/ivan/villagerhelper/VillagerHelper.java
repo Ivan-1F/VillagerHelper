@@ -2,8 +2,6 @@ package me.ivan.villagerhelper;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import me.ivan.villagerhelper.mixin.LivingEntityAccessor;
-import me.ivan.villagerhelper.mixin.VillagerEntityMixin;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
 import net.minecraft.client.util.math.Matrix4f;
@@ -15,29 +13,16 @@ import net.minecraft.entity.ai.brain.MemoryModuleType;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.particle.ParticleEffect;
-import net.minecraft.particle.ParticleType;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.GlobalPos;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.village.TradeOffer;
-import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.Iterator;
-import java.util.List;
-import java.util.function.Predicate;
 
 public class VillagerHelper {
     private static final VillagerHelper INSTANCE = new VillagerHelper();
