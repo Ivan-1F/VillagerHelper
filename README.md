@@ -12,6 +12,10 @@ It will show:
  - A RED line between the villager and its bed.
  - A BLUE line between the villager and its job site.
  - The info of the first enchantment book trade of a librarian.
+ 
+![screenshot1](https://raw.githubusercontent.com/Ivan-YFw/VillagerHelper/fabric-1.15.2/screenshot1.png)
+![screenshot2](https://raw.githubusercontent.com/Ivan-YFw/VillagerHelper/fabric-1.15.2/screenshot2.png)
+
 
 ## License
 
