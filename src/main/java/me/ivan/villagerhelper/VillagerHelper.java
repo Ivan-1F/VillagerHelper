@@ -54,7 +54,7 @@ public class VillagerHelper {
 
         while (iterator.hasNext()) {
             Entity entity = (Entity) iterator.next();
-            if (entity instanceof VillagerEntity) {
+            if (entity instanceof VillagerEntity && entity.distanceTo(mc.cameraEntity) <= RENDER_DISTANCE) {
                 VillagerEntity villager = (VillagerEntity) entity;
                 Vec3d villagerPos = villager.getPos();
                 // parse villager offers
