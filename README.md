@@ -1,4 +1,4 @@
-# Gatewayer
+# VillagerHelper
 
 [![License](https://img.shields.io/github/license/Ivan-YFw/villagerhelper.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![Issues](https://img.shields.io/github/issues/Ivan-YFw/villagerhelper.svg)](https://github.com/Ivan-YFw/gatewayer/issues)
