@@ -1,3 +1,5 @@
 {
-	"villagerhelper.renderer.price": "价格: %d 绿宝石"
+	"villagerhelper.renderer.price": "价格: %d 绿宝石",
+	"villagerhelper.gui.enabled": "村民助手启用",
+	"villagerhelper.gui.disabled": "村民助手未启用"
 }

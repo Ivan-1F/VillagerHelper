@@ -29,12 +29,15 @@ public class VillagerHelper {
     private static final VillagerHelper INSTANCE = new VillagerHelper();
     public static final MinecraftClient mc = MinecraftClient.getInstance();
     public static final float RENDER_DISTANCE = 256.0F;
+    public static boolean enable = false;
 
     public static VillagerHelper getInstance() {
         return INSTANCE;
     }
 
     public void renderVillagerInfo(float tickDelta) {
+        if (!enable) return;
+
         IntegratedServer server = mc.getServer();
         if (server == null) return;
         ServerWorld world = server.getWorld(mc.player.dimension);

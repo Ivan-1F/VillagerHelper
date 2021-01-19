@@ -1,3 +1,5 @@
 {
-	"villagerhelper.renderer.price": "Price: %d Emerald(s)"
+	"villagerhelper.renderer.price": "Price: %d Emerald(s)",
+	"villagerhelper.gui.enabled": "Villager Helper Enabled",
+	"villagerhelper.gui.disabled": "Villager Helper Disabled"
 }
