@@ -14,6 +14,7 @@ import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
+import net.minecraft.server.integrated.IntegratedServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -34,7 +35,9 @@ public class VillagerHelper {
     }
 
     public void renderVillagerInfo(float tickDelta) {
-        ServerWorld world = mc.getServer().getWorld(mc.player.dimension);
+        IntegratedServer server = mc.getServer();
+        if (server == null) return;
+        ServerWorld world = server.getWorld(mc.player.dimension);
         Iterator iterator = world.getEntities(EntityType.VILLAGER, entity -> true).iterator();
 
         while (iterator.hasNext()) {
