@@ -75,10 +75,12 @@ public class VillagerHelper {
                 if (hasJobSite) {
                     BlockPos jobSitePos = villager.getBrain().getOptionalMemory(MemoryModuleType.JOB_SITE).get().getPos();
                     drawLine(villagerPos.getX(), villagerPos.getY() + villagerHeightOffset, villagerPos.getZ(), jobSitePos.getX() + 0.5, jobSitePos.getY() + 0.5, jobSitePos.getZ() + 0.5, new Color(Formatting.BLUE.getColorValue()), 5.0F, mc.gameRenderer.getCamera(), tickDelta);
+                    drawBoxOutlined(jobSitePos.getX(), jobSitePos.getY(), jobSitePos.getZ(), jobSitePos.getX() + 1, jobSitePos.getY() + 1, jobSitePos.getZ() + 1, new Color(Formatting.BLUE.getColorValue()), 5.0F, mc.gameRenderer.getCamera());
                 }
                 if (hasBed) {
                     BlockPos bedPos = villager.getBrain().getOptionalMemory(MemoryModuleType.HOME).get().getPos();
                     drawLine(villagerPos.getX(), villagerPos.getY() + villagerHeightOffset, villagerPos.getZ(), bedPos.getX() + 0.5, bedPos.getY() + 0.5, bedPos.getZ() + 0.5, new Color(Formatting.RED.getColorValue()), 5.0F, mc.gameRenderer.getCamera(), tickDelta);
+                    drawBoxOutlined(bedPos.getX(), bedPos.getY(), bedPos.getZ(), bedPos.getX() + 1, bedPos.getY() + 0.6, bedPos.getZ() + 1, new Color(Formatting.RED.getColorValue()), 5.0F, mc.gameRenderer.getCamera());
                 }
             }
         }
@@ -147,4 +149,37 @@ public class VillagerHelper {
             RenderSystem.popMatrix();
         }
     }
+
+    public static void drawBoxOutlined(double startX, double startY, double startZ, double endX, double endY, double endZ, Color color, float lineWidth, Camera camera) {
+        double cameraX = camera.getPos().getX();
+        double cameraY = camera.getPos().getY();
+        double cameraZ = camera.getPos().getZ();
+
+        BufferBuilder bufferBuilder = Tessellator.getInstance().getBuffer();
+        bufferBuilder.begin(GL11.GL_LINE_STRIP, VertexFormats.POSITION_COLOR);
+        GlStateManager.lineWidth(lineWidth);
+
+        bufferBuilder.vertex(startX - cameraX, startY - cameraY, startZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(startX - cameraX, startY - cameraY, startZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(endX - cameraX, startY - cameraY, startZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(endX - cameraX, startY - cameraY, endZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(startX - cameraX, startY - cameraY, endZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(startX - cameraX, startY - cameraY, startZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(startX - cameraX, endY - cameraY, startZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(endX - cameraX, endY - cameraY, startZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(endX - cameraX, endY - cameraY, endZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(startX - cameraX, endY - cameraY, endZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(startX - cameraX, endY - cameraY, startZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(startX - cameraX, endY - cameraY, endZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(startX - cameraX, startY - cameraY, endZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(endX - cameraX, startY - cameraY, endZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(endX - cameraX, endY - cameraY, endZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(endX - cameraX, endY - cameraY, startZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(endX - cameraX, startY - cameraY, startZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+        bufferBuilder.vertex(endX - cameraX, startY - cameraY, startZ - cameraZ).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).next();
+
+        Tessellator.getInstance().draw();
+        GlStateManager.lineWidth(1.0f);
+    }
+
 }
