@@ -45,6 +45,7 @@ public class VillagerHelper {
             if (entity instanceof VillagerEntity && entity.distanceTo(mc.cameraEntity) <= RENDER_DISTANCE) {
                 VillagerEntity villager = (VillagerEntity) entity;
                 Vec3d villagerPos = villager.getPos();
+                float villagerHeightOffset = villager.isBaby() ? 0.5F : 1.0F;
                 // parse villager offers
                 Iterator offers = villager.getOffers().iterator();  // villager's offers
                 while (offers.hasNext()) {
@@ -70,11 +71,11 @@ public class VillagerHelper {
                 boolean hasJobSite = villager.getBrain().getOptionalMemory(MemoryModuleType.JOB_SITE).isPresent();
                 if (hasJobSite) {
                     BlockPos jobSitePos = villager.getBrain().getOptionalMemory(MemoryModuleType.JOB_SITE).get().getPos();
-                    drawLine(villagerPos.getX(), villagerPos.getY() + 1, villagerPos.getZ(), jobSitePos.getX() + 0.5, jobSitePos.getY() + 0.5, jobSitePos.getZ() + 0.5, new Color(Formatting.BLUE.getColorValue()), 5.0F, mc.gameRenderer.getCamera(), tickDelta);
+                    drawLine(villagerPos.getX(), villagerPos.getY() + villagerHeightOffset, villagerPos.getZ(), jobSitePos.getX() + 0.5, jobSitePos.getY() + 0.5, jobSitePos.getZ() + 0.5, new Color(Formatting.BLUE.getColorValue()), 5.0F, mc.gameRenderer.getCamera(), tickDelta);
                 }
                 if (hasBed) {
                     BlockPos bedPos = villager.getBrain().getOptionalMemory(MemoryModuleType.HOME).get().getPos();
-                    drawLine(villagerPos.getX(), villagerPos.getY() + 1, villagerPos.getZ(), bedPos.getX() + 0.5, bedPos.getY() + 0.5, bedPos.getZ() + 0.5, new Color(Formatting.RED.getColorValue()), 5.0F, mc.gameRenderer.getCamera(), tickDelta);
+                    drawLine(villagerPos.getX(), villagerPos.getY() + villagerHeightOffset, villagerPos.getZ(), bedPos.getX() + 0.5, bedPos.getY() + 0.5, bedPos.getZ() + 0.5, new Color(Formatting.RED.getColorValue()), 5.0F, mc.gameRenderer.getCamera(), tickDelta);
                 }
             }
         }
