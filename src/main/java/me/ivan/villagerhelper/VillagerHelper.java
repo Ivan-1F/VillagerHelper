@@ -117,10 +117,8 @@ public class VillagerHelper {
     public static void drawString(String text, double x, double y, double z, float tickDelta, int color, float line) {
         MinecraftClient client = MinecraftClient.getInstance();
         Camera camera = client.gameRenderer.getCamera();
-        if (camera.isReady() && client.getEntityRenderManager().gameOptions != null && client.player != null)
-        {
-            if (client.player.squaredDistanceTo(x, y, z) > RENDER_DISTANCE * RENDER_DISTANCE)
-            {
+        if (camera.isReady() && client.getEntityRenderManager().gameOptions != null && client.player != null) {
+            if (client.player.squaredDistanceTo(x, y, z) > RENDER_DISTANCE * RENDER_DISTANCE) {
                 return;
             }
             double camX = camera.getPos().x;
