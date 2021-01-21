@@ -4,10 +4,13 @@
   "package": "me.ivan.villagerhelper.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "MinecraftServerMixin",
+    "CustomPayloadS2CPacketAccessor"
   ],
   "client": [
     "WorldRendererMixin",
-    "SettingsScreenMixin"
+    "SettingsScreenMixin",
+    "ClientPlayNetworkHandlerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -26,6 +26,8 @@ import java.awt.*;
 import java.util.Iterator;
 
 public class VillagerHelper {
+    public static final String MOD_ID = "villagerhelper";
+
     private static final VillagerHelper INSTANCE = new VillagerHelper();
     public static final MinecraftClient mc = MinecraftClient.getInstance();
     public static final float RENDER_DISTANCE = 256.0F;
