@@ -17,9 +17,11 @@ public class ClientPlayNetworkHandlerMixin {
             cancellable = true
     )
     private void onCustomPayload(CustomPayloadS2CPacket packet, CallbackInfo ci) {
-        if (((CustomPayloadS2CPacketAccessor) packet).getChannel() == Network.CHANNEL) {
-            ClientHandler.handleEntityUpdate(packet);
-            ci.cancel();
+        synchronized (Network.sync) {
+            if (((CustomPayloadS2CPacketAccessor) packet).getChannel().toString().equals(Network.CHANNEL.toString())) {
+                ClientHandler.handleEntityUpdate(packet);
+                ci.cancel();
+            }
         }
     }
 }
