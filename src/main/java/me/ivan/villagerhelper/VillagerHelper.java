@@ -54,16 +54,18 @@ public class VillagerHelper {
             CompoundTag tag = listTag.getCompound(tagPos);
             DimensionType dimension = DimensionType.byRawId(tag.getInt("Dimension"));
             if (mc.player.dimension != dimension) continue;
-
-            // prepare renderer
-            GlStateManager.disableTexture();
-            GlStateManager.enableBlend();
-
             // Get villager data
             enchantmentBookTrade = CompoundTagParser.getFirstEnchantmentBookTrade(tag);
             villagerPos = CompoundTagParser.getPos(tag);
             home = CompoundTagParser.getHome(tag);
             jobSite = CompoundTagParser.getJobSite(tag);
+
+            if (villagerPos.squaredDistanceTo(mc.player.getPos()) > RENDER_DISTANCE * RENDER_DISTANCE) return;
+
+            // prepare renderer
+            GlStateManager.disableTexture();
+            GlStateManager.enableBlend();
+
 
             // render data
             if (enchantmentBookTrade != null) {
