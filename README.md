@@ -5,13 +5,17 @@
 [![MC Versions](http://cf.way2muchnoise.eu/versions/For%20MC_villagerhelper_all.svg)](https://www.curseforge.com/minecraft/mc-mods/villagerhelper)
 [![CurseForge](http://cf.way2muchnoise.eu/full_villagerhelper_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/villagerhelper)
 
-A mod to show some information of a villager. This is a client side only mod.
+A mod to show some information of a villager.
 
 It will show:
 
  - A RED line between the villager and its bed.
  - A BLUE line between the villager and its job site.
  - The info of the first enchantment book trade of a librarian.
+ 
+## Note
+
+You have to install this mod on both client and server side to get things work in multiplayer.
  
 ![screenshot1](https://raw.githubusercontent.com/Ivan-YFw/VillagerHelper/fabric-1.15.2/screenshot1.png)
 ![screenshot2](https://raw.githubusercontent.com/Ivan-YFw/VillagerHelper/fabric-1.15.2/screenshot2.png)
