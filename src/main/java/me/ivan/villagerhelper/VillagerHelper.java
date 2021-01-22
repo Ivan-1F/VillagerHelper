@@ -9,7 +9,6 @@ import net.minecraft.client.util.math.Matrix4f;
 import net.minecraft.client.util.math.Rotation3;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
@@ -18,7 +17,6 @@ import net.minecraft.world.dimension.DimensionType;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
