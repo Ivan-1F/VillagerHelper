@@ -15,6 +15,8 @@ import net.minecraft.util.Pair;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.dimension.DimensionType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
@@ -25,6 +27,7 @@ import java.util.Queue;
 public class VillagerHelper {
     public static final String MOD_ID = "villagerhelper";
 
+    public static final Logger LOGGER = LogManager.getLogger();
     private static final VillagerHelper INSTANCE = new VillagerHelper();
     public static final MinecraftClient mc = MinecraftClient.getInstance();
 
