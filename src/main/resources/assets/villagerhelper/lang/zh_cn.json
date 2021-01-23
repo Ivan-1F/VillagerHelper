@@ -1,5 +1,7 @@
 {
 	"villagerhelper.renderer.price": "价格: %d 绿宝石",
-	"villagerhelper.gui.enabled": "村民助手启用",
-	"villagerhelper.gui.disabled": "村民助手未启用"
+	"villagerhelper.gui.config_button": "村民助手配置",
+	"villagerhelper.gui.config.render_distance": "渲染距离: %d",
+	"villagerhelper.gui.config.toggle": "开关",
+	"villagerhelper.gui.config.done": "完成"
 }

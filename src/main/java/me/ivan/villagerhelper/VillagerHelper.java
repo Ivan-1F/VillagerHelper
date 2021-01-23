@@ -2,6 +2,7 @@ package me.ivan.villagerhelper;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import me.ivan.villagerhelper.config.Configs;
 import me.ivan.villagerhelper.utils.CompoundTagParser;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.*;
@@ -26,8 +27,6 @@ public class VillagerHelper {
 
     private static final VillagerHelper INSTANCE = new VillagerHelper();
     public static final MinecraftClient mc = MinecraftClient.getInstance();
-    public static final float RENDER_DISTANCE = 256.0F;
-    public static boolean enable = false;
 
     public static Queue<CompoundTag> tagQueue = new LinkedList<>();
 
@@ -44,7 +43,7 @@ public class VillagerHelper {
     }
 
     public void renderVillagerInfo(float tickDelta) {
-        if (!enable) return;
+        if (!Configs.ENABLE) return;
 
         if (!tagQueue.isEmpty()) listTag = tagQueue.poll().getList("data", 10);
 
@@ -60,7 +59,11 @@ public class VillagerHelper {
             home = CompoundTagParser.getHome(tag);
             jobSite = CompoundTagParser.getJobSite(tag);
 
-            if (villagerPos.squaredDistanceTo(mc.player.getPos()) > RENDER_DISTANCE * RENDER_DISTANCE) return;
+            if (villagerPos.squaredDistanceTo(mc.player.getPos()) > Configs.RENDER_DISTANCE * Configs.RENDER_DISTANCE) {
+                tagIterator.next();
+                tagPos ++;
+                continue;
+            }
 
             // prepare renderer
             GlStateManager.disableTexture();
@@ -119,9 +122,6 @@ public class VillagerHelper {
         MinecraftClient client = MinecraftClient.getInstance();
         Camera camera = client.gameRenderer.getCamera();
         if (camera.isReady() && client.getEntityRenderManager().gameOptions != null && client.player != null) {
-            if (client.player.squaredDistanceTo(x, y, z) > RENDER_DISTANCE * RENDER_DISTANCE) {
-                return;
-            }
             double camX = camera.getPos().x;
             double camY = camera.getPos().y;
             double camZ = camera.getPos().z;

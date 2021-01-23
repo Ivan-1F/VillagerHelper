@@ -1,5 +1,7 @@
 {
 	"villagerhelper.renderer.price": "Price: %d Emerald(s)",
-	"villagerhelper.gui.enabled": "Villager Helper Enabled",
-	"villagerhelper.gui.disabled": "Villager Helper Disabled"
+	"villagerhelper.gui.config_button": "Villager Helper Configs",
+	"villagerhelper.gui.config.render_distance": "Render Distance",
+	"villagerhelper.gui.config.toggle": "Toggle",
+	"villagerhelper.gui.config.done": "Done"
 }

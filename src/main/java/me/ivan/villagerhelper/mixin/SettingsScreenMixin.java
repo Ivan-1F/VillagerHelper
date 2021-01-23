@@ -1,6 +1,8 @@
 package me.ivan.villagerhelper.mixin;
 
 import me.ivan.villagerhelper.VillagerHelper;
+import me.ivan.villagerhelper.gui.ConfigScreen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.SettingsScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
@@ -20,9 +22,8 @@ public class SettingsScreenMixin extends Screen {
 
     @Inject(at = @At("RETURN"), method = "init")
     private void drawMenuButton(CallbackInfo ci) {
-        this.villagerHelperToggleButton = this.addButton(new ButtonWidget(this.width / 2 + 5, this.height / 6 + 144 - 6, 150, 20, new TranslatableText(VillagerHelper.enable ? "villagerhelper.gui.enabled" : "villagerhelper.gui.disabled").getString(), (button -> {
-            VillagerHelper.enable = !VillagerHelper.enable;
-            villagerHelperToggleButton.setMessage(new TranslatableText(VillagerHelper.enable ? "villagerhelper.gui.enabled" : "villagerhelper.gui.disabled").getString());
+        this.villagerHelperToggleButton = this.addButton(new ButtonWidget(this.width / 2 + 5, this.height / 6 + 144 - 6, 150, 20, new TranslatableText("villagerhelper.gui.config_button").getString(), (button -> {
+            MinecraftClient.getInstance().openScreen(new ConfigScreen(this));
         })));
     }
 
