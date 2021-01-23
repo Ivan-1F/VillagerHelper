@@ -39,7 +39,7 @@ public class VillagerHelper {
     private static BlockPos home;
     private static BlockPos jobSite;
 
-    private static ListTag listTag;
+    private static ListTag listTag = null;
 
     public static VillagerHelper getInstance() {
         return INSTANCE;
@@ -50,12 +50,20 @@ public class VillagerHelper {
 
         if (!tagQueue.isEmpty()) listTag = tagQueue.poll().getList("data", 10);
 
+        if (listTag == null) return;
+        if (mc.player == null) return;
+
         Iterator tagIterator = listTag.iterator();
         int tagPos = 0;
         while (tagIterator.hasNext()) {
             CompoundTag tag = listTag.getCompound(tagPos);
             DimensionType dimension = DimensionType.byRawId(tag.getInt("Dimension"));
-            if (mc.player.dimension != dimension) continue;
+            DimensionType playerDimension = mc.player.dimension;
+            if (!dimension.equals(playerDimension)) {
+                tagIterator.next();
+                tagPos ++;
+                continue;
+            }
             // Get villager data
             enchantmentBookTrade = CompoundTagParser.getFirstEnchantmentBookTrade(tag);
             villagerPos = CompoundTagParser.getPos(tag);
