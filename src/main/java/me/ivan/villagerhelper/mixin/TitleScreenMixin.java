@@ -1,6 +1,5 @@
 package me.ivan.villagerhelper.mixin;
 
-import me.ivan.villagerhelper.VillagerHelper;
 import me.ivan.villagerhelper.config.Configs;
 import net.minecraft.client.gui.screen.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;

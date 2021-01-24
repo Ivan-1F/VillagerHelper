@@ -52,6 +52,7 @@ public class VillagerHelper {
 
         if (listTag == null) return;
         if (mc.player == null) return;
+        if (mc.player.dimension == null) return;
 
         Iterator tagIterator = listTag.iterator();
         int tagPos = 0;
@@ -59,6 +60,7 @@ public class VillagerHelper {
             CompoundTag tag = listTag.getCompound(tagPos);
             DimensionType dimension = DimensionType.byRawId(tag.getInt("Dimension"));
             DimensionType playerDimension = mc.player.dimension;
+            if (playerDimension == null) continue;
             if (!dimension.equals(playerDimension)) {
                 tagIterator.next();
                 tagPos ++;
