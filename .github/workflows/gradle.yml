@@ -15,7 +15,7 @@ jobs:
   build:
     strategy:
       matrix:
-        mc: [fabric-1.16.4, fabric-1.15.2]
+        mc: [fabric-1.16.4, fabric-1.15.2, fabric-1.14.4]
 
     runs-on: ubuntu-latest
 
