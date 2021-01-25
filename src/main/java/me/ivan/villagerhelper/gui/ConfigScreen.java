@@ -31,7 +31,7 @@ public class ConfigScreen extends Screen {
                 ),
                 new DoubleOption(
                         "villagerhelper.gui.config.render_distance",
-                        0, 512, 8,
+                        8, 512, 8,
                         gameOptions -> Configs.RENDER_DISTANCE,
                         (gameOptions, aDouble) -> Configs.RENDER_DISTANCE = aDouble,
                         (gameOptions, doubleOption) -> new TranslatableText("villagerhelper.gui.config.render_distance", Configs.RENDER_DISTANCE).getString()
