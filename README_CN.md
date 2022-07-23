@@ -7,17 +7,15 @@
 [![MC Versions](https://cf.way2muchnoise.eu/versions/For%20MC_437795_all.svg)](https://www.curseforge.com/minecraft/mc-mods/villagerhelper)
 [![CurseForge](http://cf.way2muchnoise.eu/full_437795_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/villagerhelper)
 
-A mod to show some information of a villager
+一个用于显示村民信息的模组
 
-It will show:
-
- - A red line between the villager and its bed
- - A blue line between the villager and its job site
- - The info of the first enchantment book trade of a librarian
+ - 在村民与它所绑定的床间渲染一条红线
+ - 在村民与它所绑定的工作站点间渲染一条蓝线
+ - 在村民头上渲染图书管理员第一项附魔书交易（若有）的附魔以及价格
  
-## Note
+## 注意
 
-You have to install this mod on both client and server side to get things work in multiplayer
+在多人游戏中你需要同时在客户端与服务端安装本模组
 
 ![screenshot1](https://raw.githubusercontent.com/Ivan-1F/VillagerHelper/1.15.2/screenshot1.png)
 ![screenshot2](https://raw.githubusercontent.com/Ivan-1F/VillagerHelper/1.15.2/screenshot2.png)

@@ -9,11 +9,9 @@
 
 A mod to show some information of a villager
 
-It will show:
-
- - A red line between the villager and its bed
- - A blue line between the villager and its job site
- - The info of the first enchantment book trade of a librarian
+ - Render a red line between the villager and its bed
+ - Render a blue line between the villager and its job site
+ - Render the enchantment and the price of the first enchantment book trade of a librarian (if exist) on its head
  
 ## Note
 
