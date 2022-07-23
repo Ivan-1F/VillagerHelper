@@ -1,6 +1,7 @@
-package me.ivan.villagerhelper.gui;
+package me.ivan1f.villagerhelper.gui;
 
-import me.ivan.villagerhelper.config.Configs;
+import me.ivan1f.villagerhelper.config.Configs;
+import me.ivan1f.villagerhelper.network.ClientNetworkHandler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonListWidget;
@@ -15,7 +16,7 @@ public class ConfigScreen extends Screen {
     private ButtonListWidget listWidget;
 
     public ConfigScreen(Screen parent) {
-        super(new TranslatableText("VillagerHelper Config Screen"));
+        super(new TranslatableText("villagerhelper.gui.title"));
         this.parent = parent;
     }
 
@@ -34,14 +35,20 @@ public class ConfigScreen extends Screen {
                         8, 512, 8,
                         gameOptions -> Configs.RENDER_DISTANCE,
                         (gameOptions, aDouble) -> Configs.RENDER_DISTANCE = aDouble,
-                        (gameOptions, doubleOption) -> new TranslatableText("villagerhelper.gui.config.render_distance", Configs.RENDER_DISTANCE).getString()
+                        (gameOptions, doubleOption) -> new TranslatableText("villagerhelper.gui.config.render_distance", Configs.RENDER_DISTANCE).asString()
                 )
         });
         this.children.add(listWidget);
-        this.addButton(new ButtonWidget(this.width / 2 - 100, this.height / 6 + 168, 200, 20, new TranslatableText("villagerhelper.gui.config.done").getString(), (buttonWidget) -> {
-            MinecraftClient.getInstance().openScreen(this.parent);
-            Configs.writeConfigFile();
-        }));
+        this.addButton(
+                new ButtonWidget(
+                        this.width / 2 - 100,
+                        this.height / 6 + 168,
+                        200,
+                        20,
+                        new TranslatableText("villagerhelper.gui.done").asString(),
+                        (buttonWidget) -> this.onClose()
+                )
+        );
     }
 
     @Override
@@ -54,6 +61,16 @@ public class ConfigScreen extends Screen {
     public void render(int mouseX, int mouseY, float delta) {
         this.renderBackground();
         this.listWidget.render(mouseX, mouseY, delta);
+        this.drawCenteredString(this.font, this.title.asFormattedString(), this.width / 2, 15, 16777215);
+        this.drawCenteredString(
+                this.font,
+                new TranslatableText(
+                        ClientNetworkHandler.isServerModded() ? "villagerhelper.gui.server_modded" : "villagerhelper.gui.server_not_modded"
+                ).asFormattedString(),
+                this.width / 2,
+                28,
+                16777215
+        );
         super.render(mouseX, mouseY, delta);
     }
 }
