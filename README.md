@@ -1,6 +1,6 @@
 # VillagerHelper
 
-**English** | [中文](https://github.com/Ivan-1F/VillagerHelper/blob/1.15.2/README.md)
+**English** | [中文](https://github.com/Ivan-1F/VillagerHelper/blob/1.15.2/README_CN.md)
 
 [![License](https://img.shields.io/github/license/Ivan-1F/villagerhelper.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
 [![Issues](https://img.shields.io/github/issues/Ivan-1F/villagerhelper.svg)](https://github.com/Ivan-1F/VillagerHelper/issues)
