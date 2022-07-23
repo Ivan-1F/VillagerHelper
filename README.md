@@ -1,7 +1,7 @@
 # VillagerHelper
 
 [![License](https://img.shields.io/github/license/Ivan-1F/villagerhelper.svg)](http://www.gnu.org/licenses/gpl-3.0.html)
-[![Issues](https://img.shields.io/github/issues/Ivan-1F/villagerhelper.svg)](https://github.com/Ivan-1F/gatewayer/issues)
+[![Issues](https://img.shields.io/github/issues/Ivan-1F/villagerhelper.svg)](https://github.com/Ivan-1F/VillagerHelper/issues)
 [![MC Versions](https://cf.way2muchnoise.eu/versions/For%20MC_437795_all.svg)](https://www.curseforge.com/minecraft/mc-mods/villagerhelper)
 [![CurseForge](http://cf.way2muchnoise.eu/full_437795_downloads.svg)](https://www.curseforge.com/minecraft/mc-mods/villagerhelper)
 
