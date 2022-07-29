@@ -10,7 +10,7 @@ import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.util.math.Vec3d;
 
 public class PoiRenderer implements IRenderer {
-    public static PoiRenderer INSTANCE = new PoiRenderer();
+    private static final PoiRenderer INSTANCE = new PoiRenderer();
 
     public static PoiRenderer getInstance() {
         return INSTANCE;

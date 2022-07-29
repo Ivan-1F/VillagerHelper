@@ -22,33 +22,26 @@ public class RenderUtils {
         double d = renderManager.getSquaredDistanceToCamera(entity);
         if (!(d > 4096.0)) {
             matrices.push();
-            matrices.translate(0.0, entity.getHeight() + 0.5, 0.0);
+            matrices.translate(0.0, entity.getHeight(), 0.0);
             matrices.multiply(renderManager.getRotation());
             matrices.scale(-0.025F, -0.025F, 0.025F);
             Matrix4f matrix4f = matrices.peek().getModel();
             float g = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25F);
-            int k = (int) (g * 255.0F) << 24;
             TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
+
             //#if MC >= 11600
-            //$$ float h = (float) (-textRenderer.getWidth(text) / 2);
+            //$$ float x = (float) (-textRenderer.getWidth(text) / 2);
             //#else
-            float h = (float) (-textRenderer.getStringWidth(text.asFormattedString()) / 2);
+            float x = (float) (-textRenderer.getStringWidth(text.asFormattedString()) / 2);
             //#endif
+
             textRenderer.draw(
                     //#if MC >= 11600
                     //$$ text,
                     //#else
                     text.asFormattedString(),
                     //#endif
-                    h, 0, 553648127, false, matrix4f, vertexConsumerProvider, true, k, 0xf00000
-            );
-            textRenderer.draw(
-                    //#if MC >= 11600
-                    //$$ text,
-                    //#else
-                    text.asFormattedString(),
-                    //#endif
-                    h, 0, -1, false, matrix4f, vertexConsumerProvider, true, 0, 0xf00000
+                    x, 0, 16777215, false, matrix4f, vertexConsumerProvider, true, 0, 15728880
             );
 
             matrices.pop();
