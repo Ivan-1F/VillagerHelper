@@ -5,6 +5,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
+import net.minecraft.text.Text;
 import net.minecraft.client.util.math.Matrix4f;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -14,11 +15,10 @@ import net.minecraft.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
 
 public class RenderUtils {
-
     /**
      * Reference: {@link net.minecraft.client.render.entity.EntityRenderer}
      */
-    public static void renderTextOnEntity(Entity entity, String string, MatrixStack matrices, EntityRenderDispatcher renderManager, VertexConsumerProvider vertexConsumerProvider) {
+    public static void renderTextOnEntity(Entity entity, Text text, MatrixStack matrices, EntityRenderDispatcher renderManager, VertexConsumerProvider vertexConsumerProvider) {
         double d = renderManager.getSquaredDistanceToCamera(entity);
         if (!(d > 4096.0)) {
             matrices.push();
@@ -29,9 +29,27 @@ public class RenderUtils {
             float g = MinecraftClient.getInstance().options.getTextBackgroundOpacity(0.25F);
             int k = (int) (g * 255.0F) << 24;
             TextRenderer textRenderer = MinecraftClient.getInstance().textRenderer;
-            float h = (float) (-textRenderer.getStringWidth(string) / 2);
-            textRenderer.draw(string, h, 0, 553648127, false, matrix4f, vertexConsumerProvider, true, k, 0xf00000);
-            textRenderer.draw(string, h, 0, -1, false, matrix4f, vertexConsumerProvider, true, 0, 0xf00000);
+            //#if MC >= 11600
+            //$$ float h = (float) (-textRenderer.getWidth(text) / 2);
+            //#else
+            float h = (float) (-textRenderer.getStringWidth(text.asFormattedString()) / 2);
+            //#endif
+            textRenderer.draw(
+                    //#if MC >= 11600
+                    //$$ text,
+                    //#else
+                    text.asFormattedString(),
+                    //#endif
+                    h, 0, 553648127, false, matrix4f, vertexConsumerProvider, true, k, 0xf00000
+            );
+            textRenderer.draw(
+                    //#if MC >= 11600
+                    //$$ text,
+                    //#else
+                    text.asFormattedString(),
+                    //#endif
+                    h, 0, -1, false, matrix4f, vertexConsumerProvider, true, 0, 0xf00000
+            );
 
             matrices.pop();
         }

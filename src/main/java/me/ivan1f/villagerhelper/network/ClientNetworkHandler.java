@@ -64,7 +64,13 @@ public class ClientNetworkHandler {
         }
         World world = player.world;
 
-        Identifier dimId = DimensionType.getId(world.getDimension().getType());
+
+        Identifier dimId =
+                //#if MC >= 11600
+                //$$ world.getRegistryKey().getValue();
+                //#else
+                DimensionType.getId(world.getDimension().getType());
+                //#endif
         if (!buf.readIdentifier().equals(dimId)) return;
 
         int entityId = buf.readVarInt();

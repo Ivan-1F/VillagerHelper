@@ -11,6 +11,10 @@ import net.minecraft.client.options.DoubleOption;
 import net.minecraft.client.options.Option;
 import net.minecraft.text.TranslatableText;
 
+//#if MC >= 11600
+//$$ import net.minecraft.client.util.math.MatrixStack;
+//#endif
+
 public class ConfigScreen extends Screen {
     private final Screen parent;
     private ButtonListWidget listWidget;
@@ -23,7 +27,14 @@ public class ConfigScreen extends Screen {
     @Override
     protected void init() {
         super.init();
-        listWidget = new ButtonListWidget(this.minecraft, this.width, this.height, 64, this.height - 32, 25);
+        listWidget = new ButtonListWidget(
+                //#if MC >= 11600
+                //$$ this.client,
+                //#else
+                this.minecraft,
+                //#endif
+                this.width, this.height, 64, this.height - 32, 25
+        );
         listWidget.addAll(new Option[]{
                 new BooleanOption(
                         "villagerhelper.gui.config.toggle",
@@ -35,7 +46,12 @@ public class ConfigScreen extends Screen {
                         8, 512, 8,
                         gameOptions -> Configs.RENDER_DISTANCE,
                         (gameOptions, aDouble) -> Configs.RENDER_DISTANCE = aDouble,
-                        (gameOptions, doubleOption) -> new TranslatableText("villagerhelper.gui.config.render_distance", Configs.RENDER_DISTANCE).asString()
+                        (gameOptions, doubleOption) ->
+                                //#if MC >= 11600
+                                //$$ new TranslatableText("villagerhelper.gui.config.render_distance", Configs.RENDER_DISTANCE)
+                                //#else
+                                new TranslatableText("villagerhelper.gui.config.render_distance", Configs.RENDER_DISTANCE).asFormattedString()
+                                //#endif
                 )
         });
         this.children.add(listWidget);
@@ -45,7 +61,11 @@ public class ConfigScreen extends Screen {
                         this.height / 6 + 168,
                         200,
                         20,
-                        new TranslatableText("villagerhelper.gui.done").asString(),
+                        //#if MC >= 11600
+                        //$$ new TranslatableText("villagerhelper.gui.done"),
+                        //#else
+                        new TranslatableText("villagerhelper.gui.done").asFormattedString(),
+                        //#endif
                         (buttonWidget) -> this.onClose()
                 )
         );
@@ -58,10 +78,40 @@ public class ConfigScreen extends Screen {
     }
 
     @Override
-    public void render(int mouseX, int mouseY, float delta) {
-        this.renderBackground();
-        this.listWidget.render(mouseX, mouseY, delta);
+    public void render(
+            //#if MC >= 11600
+            //$$ MatrixStack matrices,
+            //#endif
+            int mouseX, int mouseY, float delta
+    ) {
+        this.renderBackground(
+                //#if MC >= 11600
+                //$$ matrices
+                //#endif
+        );
+        this.listWidget.render(
+                //#if MC >= 11600
+                //$$ matrices,
+                //#endif
+                mouseX, mouseY, delta
+        );
+        //#if MC >= 11600
+        //$$ this.textRenderer.draw(matrices, this.title, this.width / 2.0F, 15, 16777215);
+        //#else
         this.drawCenteredString(this.font, this.title.asFormattedString(), this.width / 2, 15, 16777215);
+        //#endif
+
+        //#if MC >= 11600
+        //$$ this.textRenderer.draw(
+        //$$                matrices,
+        //$$                new TranslatableText(
+        //$$                        ClientNetworkHandler.isServerModded() ? "villagerhelper.gui.server_modded" : "villagerhelper.gui.server_not_modded"
+        //$$                ),
+        //$$                this.width / 2.0F,
+        //$$                28,
+        //$$                16777215
+        //$$        );
+        //#else
         this.drawCenteredString(
                 this.font,
                 new TranslatableText(
@@ -71,6 +121,13 @@ public class ConfigScreen extends Screen {
                 28,
                 16777215
         );
-        super.render(mouseX, mouseY, delta);
+        //#endif
+
+        super.render(
+                //#if MC >= 11600
+                //$$ matrices,
+                //#endif
+                mouseX, mouseY, delta
+        );
     }
 }

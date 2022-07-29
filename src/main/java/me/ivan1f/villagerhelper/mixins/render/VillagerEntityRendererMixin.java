@@ -14,13 +14,18 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.item.EnchantedBookItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.village.TradeOffer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+//#if MC >= 11600
+//$$ import net.minecraft.text.MutableText;
+//#else
+import net.minecraft.text.Text;
+//#endif
 
 import java.util.Map;
 
@@ -61,21 +66,35 @@ public abstract class VillagerEntityRendererMixin<T extends LivingEntity> extend
         if (livingEntity.squaredDistanceTo(MinecraftClient.getInstance().player) > Configs.RENDER_DISTANCE * Configs.RENDER_DISTANCE) return;
         if (!(livingEntity instanceof VillagerEntity)) return;
         VillagerEntity villager = (VillagerEntity) livingEntity;
-        Text text = null;
+
+        //#if MC >= 11600
+        //$$ MutableText
+        //#else
+        Text
+        //#endif
+                text = null;
+
         for (TradeOffer offer : villager.getOffers()) {
             ItemStack sellItem = offer.getSellItem();
             if (sellItem.getItem() instanceof EnchantedBookItem) {
                 int price = offer.getOriginalFirstBuyItem().getCount();
                 Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(sellItem);
                 Map.Entry<Enchantment, Integer> enchantment = enchantments.entrySet().iterator().next();
-                text = enchantment.getKey().getName(enchantment.getValue()).append(" | " + price);
+                text = enchantment
+                        .getKey()
+                        .getName(enchantment.getValue())
+                        //#if MC >= 11600
+                        //$$ .shallowCopy()
+                        //#endif
+                        .append(" | " + price);
+
                 text.formatted(getFormattingForTrade(offer, enchantment));
             }
         }
         if (text != null) {
             RenderUtils.renderTextOnEntity(
                     livingEntity,
-                    text.asFormattedString(),
+                    text,
                     matrixStack,
                     this.renderManager,
                     vertexConsumerProvider

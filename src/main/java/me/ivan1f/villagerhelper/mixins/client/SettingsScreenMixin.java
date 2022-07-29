@@ -25,7 +25,11 @@ public class SettingsScreenMixin extends Screen {
                         this.height / 6 + 144 - 6,
                         150,
                         20,
+                        //#if MC >= 11600
+                        //$$ new TranslatableText("villagerhelper.gui.config_button"),
+                        //#else
                         new TranslatableText("villagerhelper.gui.config_button").asString(),
+                        //#endif
                         button -> MinecraftClient.getInstance().openScreen(new ConfigScreen(this))
                 )
         );

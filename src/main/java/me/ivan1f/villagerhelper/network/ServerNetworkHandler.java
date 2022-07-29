@@ -49,7 +49,13 @@ public class ServerNetworkHandler {
     public static void updateEntity(@NotNull ServerPlayerEntity player, @NotNull Entity entity) {
         player.networkHandler.sendPacket(Network.S2C.packet(buf -> buf
                 .writeVarInt(Network.S2C.ENTITY)
-                .writeIdentifier(DimensionType.getId(entity.getEntityWorld().getDimension().getType()))
+                .writeIdentifier(
+                        //#if MC >= 11600
+                        //$$ entity.getEntityWorld().getRegistryKey().getValue()
+                        //#else
+                        DimensionType.getId(entity.getEntityWorld().getDimension().getType())
+                        //#endif
+                )
                 .writeVarInt(entity.getEntityId())
                 .writeCompoundTag(entity.toTag(new CompoundTag()))
         ));

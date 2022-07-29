@@ -29,7 +29,11 @@ public class PoiRenderer implements IRenderer {
                 villager.getBrain().getOptionalMemory(MemoryModuleType.HOME).ifPresent(homePos -> {
                     RenderUtils.drawBox(homePos.getPos(), 0, 0, 1.0F, 0.3F);
                     RenderUtils.drawLine(
+                            //#if MC >= 11600
+                            //$$ new Vec3d(homePos.getPos().getX(), homePos.getPos().getY(), homePos.getPos().getZ()).add(0.5, 0.5, 0.5),
+                            //#else
                             new Vec3d(homePos.getPos()).add(0.5, 0.5, 0.5),
+                            //#endif
                             villager.getPos().add(0, villager.getHeight() / 2, 0),
                             0, 0, 1.0F, 1.0F
                     );
@@ -37,7 +41,11 @@ public class PoiRenderer implements IRenderer {
                 villager.getBrain().getOptionalMemory(MemoryModuleType.JOB_SITE).ifPresent(jobSitePos -> {
                     RenderUtils.drawBox(jobSitePos.getPos(), 1.0F, 0, 0, 0.3F);
                     RenderUtils.drawLine(
+                            //#if MC >= 11600
+                            //$$ new Vec3d(jobSitePos.getPos().getX(), jobSitePos.getPos().getY(), jobSitePos.getPos().getZ()).add(0.5, 0.5, 0.5),
+                            //#else
                             new Vec3d(jobSitePos.getPos()).add(0.5, 0.5, 0.5),
+                            //#endif
                             villager.getPos().add(0, villager.getHeight() / 2, 0),
                             1.0F, 0, 0, 1.0F
                     );
