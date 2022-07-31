@@ -6,17 +6,28 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonListWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.options.DoubleOption;
-import net.minecraft.client.options.Option;
-import net.minecraft.text.TranslatableText;
 
 //#if MC >= 11600
 //$$ import net.minecraft.client.util.math.MatrixStack;
 //#endif
-//#if MC >= 11700
+
+//#if MC >= 11900
+//$$ import net.minecraft.client.option.SimpleOption;
+//#elseif MC >= 11700
 //$$ import net.minecraft.client.option.CyclingOption;
 //#else
 import net.minecraft.client.options.BooleanOption;
+//#endif
+
+//#if MC < 11900
+import net.minecraft.client.options.DoubleOption;
+import net.minecraft.client.options.Option;
+//#endif
+
+//#if MC >= 11900
+//$$ import net.minecraft.text.Text;
+//#else
+import net.minecraft.text.TranslatableText;
 //#endif
 
 public class ConfigScreen extends Screen {
@@ -24,7 +35,11 @@ public class ConfigScreen extends Screen {
     private ButtonListWidget listWidget;
 
     public ConfigScreen(Screen parent) {
+        //#if MC >= 11900
+        //$$ super(Text.translatable("villagerhelper.gui.title"));
+        //#else
         super(new TranslatableText("villagerhelper.gui.title"));
+        //#endif
         this.parent = parent;
     }
 
@@ -39,35 +54,63 @@ public class ConfigScreen extends Screen {
                 //#endif
                 this.width, this.height, 64, this.height - 32, 25
         );
-        listWidget.addAll(new Option[]{
-                //#if MC >= 11700
-                //$$ CyclingOption.create(
+        listWidget.addAll(
+                //#if MC >= 11900
+                //$$ new SimpleOption[]{
                 //#else
-                new BooleanOption(
+                new Option[]{
                 //#endif
-                        "villagerhelper.gui.config.toggle",
-                        gameOptions -> Configs.ENABLE,
-                        (
-                                gameOptions,
-                                //#if MC >= 11700
-                                //$$ option,
-                                //#endif
-                                aBoolean
-                        ) -> Configs.ENABLE = aBoolean
-                ),
-                new DoubleOption(
-                        "villagerhelper.gui.config.render_distance",
-                        8, 512, 8,
-                        gameOptions -> Configs.RENDER_DISTANCE,
-                        (gameOptions, aDouble) -> Configs.RENDER_DISTANCE = aDouble,
-                        (gameOptions, doubleOption) ->
-                                //#if MC >= 11600
-                                //$$ new TranslatableText("villagerhelper.gui.config.render_distance", Configs.RENDER_DISTANCE)
-                                //#else
-                                new TranslatableText("villagerhelper.gui.config.render_distance", Configs.RENDER_DISTANCE).asFormattedString()
-                                //#endif
-                )
-        });
+                    //#if MC >= 11900
+                    //$$ SimpleOption.ofBoolean(
+                    //#elseif MC >= 11700
+                    //$$ CyclingOption.create(
+                    //#else
+                    new BooleanOption(
+                    //#endif
+                            "villagerhelper.gui.config.toggle",
+
+                            //#if MC >= 11900
+                            //$$ Configs.ENABLE,
+                            //#else
+                            gameOptions -> Configs.ENABLE,
+
+                            //#endif
+                            //#if MC >= 11900
+                            //$$ (value) -> Configs.ENABLE = value
+                            //#elseif MC >= 11700
+                            //$$ (gameOptions, option, aBoolean) -> Configs.ENABLE = aBoolean
+                            //#else
+                            (gameOptions, aBoolean) -> Configs.ENABLE = aBoolean
+                            //#endif
+                    ),
+                    //#if MC >= 11900
+                    //$$ new SimpleOption<>(
+                    //#else
+                    new DoubleOption(
+                    //#endif
+                            "villagerhelper.gui.config.render_distance",
+                            //#if MC >= 11900
+                            //$$ SimpleOption.emptyTooltip(),
+                            //#endif
+                            //#if MC < 11900
+                            8, 512, 8,
+                            gameOptions -> Configs.RENDER_DISTANCE,
+                            (gameOptions, aDouble) -> Configs.RENDER_DISTANCE = aDouble,
+                            //#endif
+                            (gameOptions, doubleOption) ->
+                                    //#if MC >= 11900
+                                    //$$ Text.translatable("villagerhelper.gui.config.render_distance", Configs.RENDER_DISTANCE)
+                                    //#elseif MC >= 11600
+                                    //$$ new TranslatableText("villagerhelper.gui.config.render_distance", Configs.RENDER_DISTANCE)
+                                    //#else
+                                    new TranslatableText("villagerhelper.gui.config.render_distance", Configs.RENDER_DISTANCE).asFormattedString()
+                                    //#endif
+                            //#if MC >= 11900
+                            //$$ , SimpleOption.DoubleSliderCallbacks.INSTANCE, Configs.RENDER_DISTANCE / 512, (value) -> Configs.RENDER_DISTANCE = (int) (value * 512)
+                            //#endif
+                    )
+                }
+        );
         //#if MC >= 11700
         //$$ this.addDrawableChild(listWidget);
         //#else
@@ -79,7 +122,9 @@ public class ConfigScreen extends Screen {
                         this.height / 6 + 168,
                         200,
                         20,
-                        //#if MC >= 11600
+                        //#if MC >= 11900
+                        //$$ Text.translatable("villagerhelper.gui.done"),
+                        //#elseif MC >= 11600
                         //$$ new TranslatableText("villagerhelper.gui.done"),
                         //#else
                         new TranslatableText("villagerhelper.gui.done").asFormattedString(),
@@ -119,7 +164,17 @@ public class ConfigScreen extends Screen {
         this.drawCenteredString(this.font, this.title.asFormattedString(), this.width / 2, 15, 16777215);
         //#endif
 
-        //#if MC >= 11600
+        //#if MC >= 11900
+        //$$ this.textRenderer.draw(
+        //$$                matrices,
+        //$$                Text.translatable(
+        //$$                        ClientNetworkHandler.isServerModded() ? "villagerhelper.gui.server_modded" : "villagerhelper.gui.server_not_modded"
+        //$$                ),
+        //$$                this.width / 2.0F,
+        //$$                28,
+        //$$                16777215
+        //$$        );
+        //#elseif MC >= 11600
         //$$ this.textRenderer.draw(
         //$$                matrices,
         //$$                new TranslatableText(

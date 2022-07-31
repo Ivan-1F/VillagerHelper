@@ -22,9 +22,9 @@ public class ServerNetworkHandler {
             case Network.C2S.HI: {
                 String clientModVersion = data.readString(Short.MAX_VALUE);
                 VillagerHelperMod.LOGGER.info("Player {} connected with {} @ {}", playerName, VillagerHelperMod.MOD_NAME, clientModVersion);
-                player.networkHandler.sendPacket(Network.S2C.packet(buf -> buf.
-                        writeVarInt(Network.S2C.HI).
-                        writeString(VillagerHelperMod.VERSION)
+                player.networkHandler.sendPacket(Network.S2C.packet(buf -> buf
+                        .writeVarInt(Network.S2C.HI)
+                        .writeString(VillagerHelperMod.VERSION)
                 ));
                 player.getServerWorld()
                         .getEntities(EntityType.VILLAGER, villager -> true)

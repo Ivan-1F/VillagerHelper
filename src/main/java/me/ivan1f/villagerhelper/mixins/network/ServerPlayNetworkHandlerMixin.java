@@ -2,8 +2,6 @@ package me.ivan1f.villagerhelper.mixins.network;
 
 import me.ivan1f.villagerhelper.network.Network;
 import me.ivan1f.villagerhelper.network.ServerNetworkHandler;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.network.packet.c2s.play.CustomPayloadC2SPacket;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
