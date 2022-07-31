@@ -3,7 +3,6 @@ package me.ivan1f.villagerhelper.mixins.render;
 import me.ivan1f.villagerhelper.config.Configs;
 import me.ivan1f.villagerhelper.utils.RenderUtils;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.enchantment.Enchantment;
@@ -25,6 +24,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.text.Text;
 //#endif
 
+//#if MC >= 11700
+//$$ import net.minecraft.client.render.entity.EntityRendererFactory;
+//#else
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
+//#endif
+
 //#if MC >= 11500
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
@@ -34,7 +39,14 @@ import java.util.Map;
 
 @Mixin(LivingEntityRenderer.class)
 public abstract class VillagerEntityRendererMixin<T extends LivingEntity> extends EntityRenderer<T> {
-    protected VillagerEntityRendererMixin(EntityRenderDispatcher dispatcher) {
+    protected VillagerEntityRendererMixin(
+            //#if MC >= 11700
+            //$$ EntityRendererFactory.Context
+            //#else
+            EntityRenderDispatcher
+            //#endif
+                    dispatcher
+    ) {
         super(dispatcher);
     }
 

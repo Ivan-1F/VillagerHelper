@@ -10,7 +10,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
+
+//#if MC < 11700
 import org.lwjgl.opengl.GL11;
+//#endif
 
 //#if MC >= 11500
 import net.minecraft.client.util.math.Matrix4f;
@@ -124,7 +127,17 @@ public class RenderUtils {
     public static void drawBox(double minX, double minY, double minZ, double maxX, double maxY, double maxZ, float red, float green, float blue, float alpha) {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferBuilder = tessellator.getBuffer();
-        bufferBuilder.begin(GL11.GL_TRIANGLE_STRIP, VertexFormats.POSITION_COLOR);
+        //#if MC >= 11700
+        //$$ RenderSystem.setShader(GameRenderer::getPositionColorShader);
+        //#endif
+        bufferBuilder.begin(
+                //#if MC >= 11700
+                //$$ VertexFormat.DrawMode.TRIANGLE_STRIP,
+                //#else
+                GL11.GL_TRIANGLE_STRIP,
+                //#endif
+                VertexFormats.POSITION_COLOR
+        );
         //#if MC >= 11500
         WorldRenderer.drawBox(bufferBuilder, minX, minY, minZ, maxX, maxY, maxZ, red, green, blue, alpha);
         //#else
@@ -158,7 +171,17 @@ public class RenderUtils {
         //#endif
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferBuilder = tessellator.getBuffer();
-        bufferBuilder.begin(GL11.GL_LINE_STRIP, VertexFormats.POSITION_COLOR);
+        //#if MC >= 11700
+        //$$ RenderSystem.setShader(GameRenderer::getPositionColorShader);
+        //#endif
+        bufferBuilder.begin(
+                //#if MC >= 11700
+                //$$ VertexFormat.DrawMode.DEBUG_LINE_STRIP,
+                //#else
+                GL11.GL_LINE_STRIP,
+                //#endif
+                VertexFormats.POSITION_COLOR
+        );
         bufferBuilder.vertex(minX, minY, minZ).color(red, green, blue, alpha).next();
         bufferBuilder.vertex(maxX, maxY, maxZ).color(red, green, blue, alpha).next();
         tessellator.draw();

@@ -1,0 +1,3 @@
+net.minecraft.entity.Entity getEntityId() getId()
+net.minecraft.client.gui.screen.Screen addButton() addDrawableChild()
+net.minecraft.client.MinecraftClient openScreen() setScreen()

@@ -28,7 +28,11 @@ public class WorldRendererMixin {
             )
     )
     private void render$villagerhelper(MatrixStack matrices, float tickDelta, long limitTime, boolean renderBlockOutline, Camera camera, GameRenderer gameRenderer, LightmapTextureManager lightmapTextureManager, Matrix4f matrix4f, CallbackInfo ci) {
+        //#if MC >= 11700
+        //$$ matrices.push();
+        //#else
         RenderSystem.pushMatrix();
+        //#endif
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableTexture();
@@ -37,7 +41,11 @@ public class WorldRendererMixin {
 
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
+        //#if MC >= 11700
+        //$$ matrices.pop();
+        //#else
         RenderSystem.popMatrix();
+        //#endif
     }
     //#endif
 }

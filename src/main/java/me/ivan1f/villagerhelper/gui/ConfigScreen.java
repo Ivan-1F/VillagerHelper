@@ -6,13 +6,17 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonListWidget;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.options.BooleanOption;
 import net.minecraft.client.options.DoubleOption;
 import net.minecraft.client.options.Option;
 import net.minecraft.text.TranslatableText;
 
 //#if MC >= 11600
 //$$ import net.minecraft.client.util.math.MatrixStack;
+//#endif
+//#if MC >= 11700
+//$$ import net.minecraft.client.option.CyclingOption;
+//#else
+import net.minecraft.client.options.BooleanOption;
 //#endif
 
 public class ConfigScreen extends Screen {
@@ -36,10 +40,20 @@ public class ConfigScreen extends Screen {
                 this.width, this.height, 64, this.height - 32, 25
         );
         listWidget.addAll(new Option[]{
+                //#if MC >= 11700
+                //$$ CyclingOption.create(
+                //#else
                 new BooleanOption(
+                //#endif
                         "villagerhelper.gui.config.toggle",
                         gameOptions -> Configs.ENABLE,
-                        (gameOptions, aBoolean) -> Configs.ENABLE = aBoolean
+                        (
+                                gameOptions,
+                                //#if MC >= 11700
+                                //$$ option,
+                                //#endif
+                                aBoolean
+                        ) -> Configs.ENABLE = aBoolean
                 ),
                 new DoubleOption(
                         "villagerhelper.gui.config.render_distance",
@@ -54,7 +68,11 @@ public class ConfigScreen extends Screen {
                                 //#endif
                 )
         });
+        //#if MC >= 11700
+        //$$ this.addDrawableChild(listWidget);
+        //#else
         this.children.add(listWidget);
+        //#endif
         this.addButton(
                 new ButtonWidget(
                         this.width / 2 - 100,
