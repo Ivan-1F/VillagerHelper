@@ -4,19 +4,21 @@
   "package": "me.ivan1f.villagerhelper.mixins",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "compat.VillagerEntityMixin",
     "network.CustomPayloadC2SPacketAccessor",
     "network.ServerPlayNetworkHandlerMixin",
+    "render.GameRendererMixin",
     "server.PlayerManagerMixin",
     "server.VillagerEntityMixin"
   ],
   "client": [
+    "client.SettingsScreenMixin",
+    "client.TitleScreenMixin",
     "client.VillagerEntityMixin",
     "network.ClientPlayNetworkHandlerMixin",
     "network.CustomPayloadS2CPacketAccessor",
     "render.VillagerEntityRendererMixin",
-    "render.WorldRendererMixin",
-    "client.SettingsScreenMixin",
-    "client.TitleScreenMixin"
+    "render.WorldRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -3,11 +3,9 @@ package me.ivan1f.villagerhelper.mixins.render;
 import me.ivan1f.villagerhelper.config.Configs;
 import me.ivan1f.villagerhelper.utils.RenderUtils;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
@@ -25,6 +23,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //$$ import net.minecraft.text.MutableText;
 //#else
 import net.minecraft.text.Text;
+//#endif
+
+//#if MC >= 11500
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.util.math.MatrixStack;
 //#endif
 
 import java.util.Map;
@@ -58,10 +61,20 @@ public abstract class VillagerEntityRendererMixin<T extends LivingEntity> extend
     }
 
     @Inject(
+            //#if MC >= 11500
             method = "render(Lnet/minecraft/entity/LivingEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V",
+            //#else
+            //$$ method = "render(Lnet/minecraft/entity/LivingEntity;DDDFF)V",
+            //#endif
             at = @At("RETURN")
     )
-    private void render$villagerhelper(T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
+    private void render$villagerhelper(
+            //#if MC >= 11500
+            T livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci
+            //#else
+            //$$ T livingEntity, double d, double e, double f, float g, float h, CallbackInfo ci
+            //#endif
+    ) {
         if (!Configs.ENABLE) return;
         if (livingEntity.squaredDistanceTo(MinecraftClient.getInstance().player) > Configs.RENDER_DISTANCE * Configs.RENDER_DISTANCE) return;
         if (!(livingEntity instanceof VillagerEntity)) return;
@@ -95,9 +108,13 @@ public abstract class VillagerEntityRendererMixin<T extends LivingEntity> extend
             RenderUtils.renderTextOnEntity(
                     livingEntity,
                     text,
+                    //#if MC >= 11500
                     matrixStack,
                     this.renderManager,
                     vertexConsumerProvider
+                    //#else
+                    //$$ d, e, f
+                    //#endif
             );
         }
     }
