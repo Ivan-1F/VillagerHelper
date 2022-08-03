@@ -26,6 +26,7 @@ import net.minecraft.client.options.Option;
 
 //#if MC >= 11900
 //$$ import net.minecraft.text.Text;
+//$$ import net.minecraft.util.math.MathHelper;
 //#else
 import net.minecraft.text.TranslatableText;
 //#endif
@@ -106,7 +107,12 @@ public class ConfigScreen extends Screen {
                                     new TranslatableText("villagerhelper.gui.config.render_distance", Configs.RENDER_DISTANCE).asFormattedString()
                                     //#endif
                             //#if MC >= 11900
-                            //$$ , SimpleOption.DoubleSliderCallbacks.INSTANCE, Configs.RENDER_DISTANCE / 512, (value) -> Configs.RENDER_DISTANCE = (int) (value * 512)
+                            //$$ , SimpleOption.DoubleSliderCallbacks.INSTANCE, Configs.RENDER_DISTANCE / 512, (value) -> {
+                            //$$     double adjustedValue = (int) (value * 512);
+                            //$$     double step = 8;
+                            //$$     adjustedValue = (step * (float) Math.round(adjustedValue / step));
+                            //$$     Configs.RENDER_DISTANCE = MathHelper.clamp(adjustedValue, 0, 512);
+                            //$$ }
                             //#endif
                     )
                 }
